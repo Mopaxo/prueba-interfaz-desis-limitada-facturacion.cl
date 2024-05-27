@@ -1,5 +1,5 @@
 document.getElementById('votingForm').addEventListener('submit', function(event) {
-    // Validación del campo Nombre y Apellido
+    // Validación del campo "Nombre y Apellido" (No debe quedar en Blanco.)
     const nombre = document.getElementById('nombre').value;
     if (nombre.trim() === '') {
         alert('El campo Nombre y Apellido no puede estar vacío.');
@@ -7,7 +7,7 @@ document.getElementById('votingForm').addEventListener('submit', function(event)
         return;
     }
 
-    // Validación del campo Alias
+    // Validación del campo "Alias" (Validar que la cantidad de caracteres sea mayor a 5 y que contenga letras y números.)
     const alias = document.getElementById('alias').value;
     if (alias.length <= 5 || !/\d/.test(alias) || !/[a-zA-Z]/.test(alias)) {
         alert('El alias debe tener más de 5 caracteres y contener letras y números.');
@@ -15,7 +15,7 @@ document.getElementById('votingForm').addEventListener('submit', function(event)
         return;
     }
 
-    // Validación del RUT (aquí puedes agregar una función para validar el formato chileno)
+    // Validación del RUT (Deberá Validar el RUT (Formato Chile).)
     const rut = document.getElementById('rut').value;
     if (!validarRUT(rut)) {
         alert('El RUT no es válido.');
@@ -23,7 +23,7 @@ document.getElementById('votingForm').addEventListener('submit', function(event)
         return;
     }
 
-    // Validación del Email
+    // Validación del Email (Deberá validar el correo según estándar.) 
     const email = document.getElementById('email').value;
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
@@ -32,7 +32,7 @@ document.getElementById('votingForm').addEventListener('submit', function(event)
         return;
     }
 
-    // Validación del Combo Box Región y Comuna
+    // Validación del Combo Box Región y Comuna (Los Combo Box Región y Comuna deben cargar los datos desde Base de Datos. No deberán quedar en blanco y entre los combos debe existir relación Región->Comuna. )
     const region = document.getElementById('region').value;
     const comuna = document.getElementById('comuna').value;
     if (region === '') {
@@ -46,7 +46,7 @@ document.getElementById('votingForm').addEventListener('submit', function(event)
         return;
     }
 
-    // Validación del Combo Box Candidato
+    // Validación del Combo Box "Candidato" (El Combo Box Candidato debe cargar los datos desde Base de Datos. )
     const candidato = document.getElementById('candidato').value;
     if (candidato === '') {
         alert('Debe seleccionar un candidato.');
@@ -54,7 +54,7 @@ document.getElementById('votingForm').addEventListener('submit', function(event)
         return;
     }
 
-    // Validación de checkboxes "Cómo se enteró de nosotros"
+    // Validación de checkbox "Cómo se enteró de nosotros" (Checkbox “Como se enteró de Nosotros”: Debe elegir al menos dos opciones. )
     const checkboxes = document.querySelectorAll('input[name="enterado[]"]:checked');
     if (checkboxes.length < 2) {
         alert('Debes seleccionar al menos dos opciones en "Cómo se enteró de nosotros".');
@@ -66,8 +66,8 @@ document.getElementById('votingForm').addEventListener('submit', function(event)
     // Por ejemplo, puedes hacer una solicitud AJAX al servidor para verificarlo
 });
 
+// Implementación de la lógica de validación del RUT
 function validarRUT(rut) {
-    // Implementación de la lógica de validación del RUT
     rut = rut.replace(/\./g, '').replace(/-/g, '');
     if (rut.length < 8) return false;
     var body = rut.slice(0, -1);
