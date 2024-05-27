@@ -17,4 +17,16 @@ try {
 } catch (\PDOException $e) {
     throw new \PDOException($e->getMessage(), (int)$e->getCode());
 }
+
+function getPDOInstance() {
+    global $pdo;
+    return $pdo;
+}
+
+function executeQuery($sql, $params = []) {
+    $pdo = getPDOInstance();
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute($params);
+    return $stmt;
+}
 ?>

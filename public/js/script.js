@@ -1,3 +1,9 @@
+const urls = {
+    getRegions: '/controllers/RegionController.php',
+    getComunas: '/controllers/ComunaController.php',
+    getCandidatos: '/controllers/CandidatoController.php',
+    submitVote: '/controllers/VotoController.php'
+};
 document.getElementById('votingForm').addEventListener('submit', function(event) {
     event.preventDefault(); // Prevenir el envío por defecto
 
@@ -111,6 +117,32 @@ function validarRUT(rut) {
     expectedDv = expectedDv === 11 ? '0' : expectedDv === 10 ? 'K' : expectedDv.toString();
 
     return dv === expectedDv;
+}
+// Cargar las regiones desde la base de datos
+function cargarRegiones() {
+    fetch(urls.getRegions)
+        .then(response => response.json())
+        .then(data => {
+            // Resto del código para cargar las regiones...
+        });
+}
+
+// Cargar las comunas correspondientes a la región seleccionada desde la base de datos
+function cargarComunas(regionId) {
+    fetch(`${urls.getComunas}&region_id=${regionId}`)
+        .then(response => response.json())
+        .then(data => {
+            // Resto del código para cargar las comunas...
+        });
+}
+
+// Cargar los candidatos desde la base de datos
+function cargarCandidatos() {
+    fetch(urls.getCandidatos)
+        .then(response => response.json())
+        .then(data => {
+            // Resto del código para cargar los candidatos...
+        });
 }
 
 // Cargar las regiones desde la base de datos
