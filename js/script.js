@@ -1,9 +1,10 @@
 document.getElementById('votingForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevenir el envío por defecto
+
     // Validación del campo "Nombre y Apellido" (No debe quedar en Blanco.)
     const nombre = document.getElementById('nombre').value;
     if (nombre.trim() === '') {
         alert('El campo Nombre y Apellido no puede estar vacío.');
-        event.preventDefault();
         return;
     }
 
@@ -11,7 +12,6 @@ document.getElementById('votingForm').addEventListener('submit', function(event)
     const alias = document.getElementById('alias').value;
     if (alias.length <= 5 || !/\d/.test(alias) || !/[a-zA-Z]/.test(alias)) {
         alert('El alias debe tener más de 5 caracteres y contener letras y números.');
-        event.preventDefault();
         return;
     }
 
@@ -19,7 +19,6 @@ document.getElementById('votingForm').addEventListener('submit', function(event)
     const rut = document.getElementById('rut').value;
     if (!validarRUT(rut)) {
         alert('El RUT no es válido.');
-        event.preventDefault();
         return;
     }
 
@@ -28,7 +27,6 @@ document.getElementById('votingForm').addEventListener('submit', function(event)
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
         alert('El email no es válido.');
-        event.preventDefault();
         return;
     }
 
@@ -37,12 +35,10 @@ document.getElementById('votingForm').addEventListener('submit', function(event)
     const comuna = document.getElementById('comuna').value;
     if (region === '') {
         alert('Debe seleccionar una región.');
-        event.preventDefault();
         return;
     }
     if (comuna === '') {
         alert('Debe seleccionar una comuna.');
-        event.preventDefault();
         return;
     }
 
@@ -50,7 +46,6 @@ document.getElementById('votingForm').addEventListener('submit', function(event)
     const candidato = document.getElementById('candidato').value;
     if (candidato === '') {
         alert('Debe seleccionar un candidato.');
-        event.preventDefault();
         return;
     }
 
@@ -58,15 +53,47 @@ document.getElementById('votingForm').addEventListener('submit', function(event)
     const checkboxes = document.querySelectorAll('input[name="enterado[]"]:checked');
     if (checkboxes.length < 2) {
         alert('Debes seleccionar al menos dos opciones en "Cómo se enteró de nosotros".');
-        event.preventDefault();
         return;
     }
 
-    // Aquí puedes agregar la lógica para verificar la duplicación de votos por RUT
-    // Por ejemplo, puedes hacer una solicitud AJAX al servidor para verificarlo
+    // Lógica para verificar la duplicación de votos por RUT
+    const formData = new FormData(document.getElementById('votingForm'));
+    fetch('process.php?action=checkRUT', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.exists) {
+            alert('El RUT ingresado ya ha votado. Porfavor ingrese otro RUT');
+        } else {
+            // Si el RUT no existe, se envia el formulario y guardamos el voto.
+            fetch('process.php?action=submitVote', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Voto registrado con éxito.');
+                    document.getElementById('votingForm').reset();
+                } else {
+                    alert('Error al registrar el voto.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error al registrar el voto.');
+            });
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Error al verificar el RUT.');
+    });
 });
 
-// Implementación de la lógica de validación del RUT
+//Lógica de validación del formato RUT
 function validarRUT(rut) {
     rut = rut.replace(/\./g, '').replace(/-/g, '');
     if (rut.length < 8) return false;
