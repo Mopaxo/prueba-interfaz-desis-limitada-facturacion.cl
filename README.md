@@ -57,6 +57,7 @@ prueba-interfaz-desis-limitada-facturacion.cl/
 
 - PHP 8.1.2
 - MySQL 8.0.36
+- Sistema operativo Linux o MacOs
 
 ## Configuración del Proyecto Local
 

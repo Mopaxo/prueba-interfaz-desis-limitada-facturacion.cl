@@ -1,3 +1,9 @@
+Requisitos del Sistema:
+
+- PHP 8.1.2
+- MySQL 8.0.36
+- Sistema operativo Linux o MacOs
+
 Instrucciones de instalación: (Linux/MacOs)
 
 1. Instalación de PHP 8.1.2:
