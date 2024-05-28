@@ -1,4 +1,4 @@
-# prueba-interfaz-desis-limitada-fracturacion.cl
+# prueba-interfaz-desis-limitada-facturacion.cl
 
 Este repositorio contiene el desarrollo de la tarea asignada para el puesto de programador web de Desis limitada.
 
@@ -77,7 +77,7 @@ Instrucciones de instalación: (Linux/MacOs)
     ```
     mysql -u usuario -p nombre_de_la_base_de_datos < proyecto/sql/votaciones.sql
     ```
-    
+
 Configuración de variables de entorno:
 
 Es necesario configurar las variables de entorno para ejecutar el proyecto localmente. Asegúrate de crear un archivo `.env` en la raíz del proyecto con la configuración adecuada antes de comenzar. El archivo `.env` utiliza el siguiente formato:
