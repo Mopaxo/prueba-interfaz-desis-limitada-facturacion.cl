@@ -14,12 +14,24 @@ class VotoModel {
         return ['exists' => $count > 0];
     }
 
-    public function submitVote($data) {
-        $stmt = $this->pdo->prepare('INSERT INTO votos (nombre, alias, rut, email, region_id, comuna_id, candidato_id, enterado) VALUES (?, ?, ?, ?, ?, ?, ?, ?)');
-        return $stmt->execute([
-            $data['nombre'], $data['alias'], $data['rut'], $data['email'],
-            $data['region_id'], $data['comuna_id'], $data['candidato_id'], $data['enterado']
-        ]);
+    public function submitVote() {
+        try {
+            $data = [
+                'nombre' => $_POST['nombre'] ?? '',
+                'alias' => $_POST['alias'] ?? '',
+                'rut' => $_POST['rut'] ?? '',
+                'email' => $_POST['email'] ?? '',
+                'region_id' => $_POST['region'] ?? 0,
+                'comuna_id' => $_POST['comuna'] ?? 0,
+                'candidato_id' => $_POST['candidato'] ?? 0,
+                'enterado' => isset($_POST['enterado']) ? json_encode($_POST['enterado']) : '[]'
+            ];
+            $model = new VotoModel($this->pdo);
+            return $model->submitVote($data);
+        } catch (Exception $e) {
+            // Manejo del error
+            return ['error' => 'Error al procesar el voto: ' . $e->getMessage()];
+        }
     }
 }
 ?>
