@@ -57,3 +57,18 @@ prueba-interfaz-desis-limitada-facturacion.cl/
 
 - PHP 7.x (A Definir)
 - MySQL 5.x (A definir)
+
+
+## Configuración del Proyecto
+
+Es necesario configurar las variables de entorno para ejecutar el proyecto localmente. Asegúrate de crear un archivo `.env` en la raíz del proyecto con la configuración adecuada antes de comenzar. El archivo `.env` utiliza el siguiente formato:
+
+```
+DB_HOST=ejemplo_servidor
+DB_NAME=ejemplo_base_de_datos
+DB_USER=usuario_ejemplo
+DB_PASS=contraseña_ejemplo
+DB_CHARSET=utf8mb4
+```
+
+Deberás configurar los variables segun la base de datos que utilices.
