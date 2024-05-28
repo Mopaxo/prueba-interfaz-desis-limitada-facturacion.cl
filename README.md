@@ -8,31 +8,32 @@ Este proyecto es una aplicación simple de votación desarrollada en PHP sin el 
 
 ## Estructura del Proyecto
 
-├──prueba-interfaz-desis-limitada-facturacion.cl
-├────config/
-│ ├────db.php
-│ └────env.php
-├────controllers/
-│ ├────BaseController.php
-│ ├────CandidatoController.php
-│ ├────ComunaController.php
-│ ├────RegionController.php
-│ └────VotoController.php
-├────models/
-│ ├────CandidatoModel.php
-│ ├────ComunaModel.php
-│ ├────RegionModel.php
-│ └────VotoModel.php
-├────public/
-│ ├────css/
-│ │ └────styles.css
-│ └────js/
-│ └────script.js
-├────views/
-│ └────home.php
-├────.env
-├────index.php
-└────README.md
+prueba-interfaz-desis-limitada-facturacion.cl/
+├── config/
+│   ├── db.php
+│   └── env.php
+├── controllers/
+│   ├── BaseController.php
+│   ├── CandidatoController.php
+│   ├── ComunaController.php
+│   ├── RegionController.php
+│   └── VotoController.php
+├── models/
+│   ├── CandidatoModel.php
+│   ├── ComunaModel.php
+│   ├── RegionModel.php
+│   └── VotoModel.php
+├── public/
+│   ├── css/
+│   │   └── styles.css
+│   └── js/
+│       └── script.js
+├── views/
+│   └── home.php
+├── .env
+├── index.php
+└── README.md
+
 
 ### Descripción de Directorios y Archivos
 
