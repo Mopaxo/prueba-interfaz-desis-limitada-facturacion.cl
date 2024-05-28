@@ -1,3 +1,4 @@
+
 const urls = {
     getRegions: '/index.php?action=getRegions',
     getComunas: '/index.php?action=getComunas',
@@ -87,6 +88,7 @@ document.getElementById('votingForm').addEventListener('submit', function(event)
                     document.getElementById('votingForm').reset();
                 } else {
                     alert('Error al registrar el voto.');
+                    document.getElementById('votingForm').reset();
                 }
             })
             .catch(error => {
