@@ -7,7 +7,7 @@ Este repositorio contiene el desarrollo de la tarea asignada para el puesto de p
 Este proyecto es una aplicación simple de votación desarrollada en PHP sin el uso de frameworks. Permite a los usuarios seleccionar candidatos y enviar sus votos.
 
 ## Estructura del Proyecto
-
+```
 prueba-interfaz-desis-limitada-facturacion.cl/
 ├── config/
 │   ├── db.php
@@ -33,8 +33,7 @@ prueba-interfaz-desis-limitada-facturacion.cl/
 ├── .env
 ├── index.php
 └── README.md
-
-
+```
 ### Descripción de Directorios y Archivos
 
 - `/config`: Contiene archivos de configuración del proyecto.
