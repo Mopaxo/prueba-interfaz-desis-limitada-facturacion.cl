@@ -6,6 +6,12 @@ require_once __DIR__ . '/../models/CandidatoModel.php';
 require_once __DIR__ . '/../models/VotoModel.php';
 
 class ProcessController {
+    private $pdo;
+
+    public function __construct($pdo) {
+        $this->pdo = $pdo;
+    }
+
     public function handleRequest() {
         $action = isset($_GET['action']) ? $_GET['action'] : '';
 
@@ -31,33 +37,29 @@ class ProcessController {
         }
     }
 
-    private function getRegions() {
-        $model = new RegionModel();
+    public function getRegions() {
+        $model = new RegionModel($this->pdo);
         $regions = $model->getAllRegions();
-        require_once __DIR__ . '/../views/json_response.php';
     }
 
-    private function getComunas() {
+    public function getComunas() {
         $region_id = isset($_GET['region_id']) ? $_GET['region_id'] : 0;
-        $model = new ComunaModel();
+        $model = new ComunaModel($this->pdo);
         $comunas = $model->getComunasByRegion($region_id);
-        require_once __DIR__ . '/../views/json_response.php';
     }
 
-    private function getCandidatos() {
-        $model = new CandidatoModel();
+    public function getCandidatos() {
+        $model = new CandidatoModel($this->pdo);
         $candidatos = $model->getAllCandidatos();
-        require_once __DIR__ . '/../views/json_response.php';
     }
 
-    private function checkRUT() {
+    public function checkRUT() {
         $rut = isset($_POST['rut']) ? $_POST['rut'] : '';
-        $model = new VotoModel();
+        $model = new VotoModel($this->pdo);
         $exists = $model->checkRUT($rut);
-        require_once __DIR__ . '/../views/json_response.php';
     }
 
-    private function submitVote() {
+    public function submitVote() {
         $data = [
             'nombre' => $_POST['nombre'] ?? '',
             'alias' => $_POST['alias'] ?? '',
@@ -68,9 +70,10 @@ class ProcessController {
             'candidato_id' => $_POST['candidato'] ?? 0,
             'enterado' => isset($_POST['enterado']) ? json_encode($_POST['enterado']) : '[]'
         ];
-        $model = new VotoModel();
+        $model = new VotoModel($this->pdo);
         $success = $model->submitVote($data);
         require_once __DIR__ . '/../views/json_response.php';
     }
 }
+
 ?>

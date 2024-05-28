@@ -2,8 +2,7 @@
 class RegionModel {
     private $pdo;
 
-    public function __construct() {
-        global $pdo;
+    public function __construct($pdo) {
         $this->pdo = $pdo;
     }
 
@@ -12,4 +11,4 @@ class RegionModel {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 }
-?>
+

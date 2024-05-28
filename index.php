@@ -2,9 +2,13 @@
 require_once 'config/db.php';
 require_once 'controllers/ProcessController.php';
 
-$action = isset($_GET['action']) ? $_GET['action'] : 'home';
+// Crear una instancia de PDO
+$pdo = obtenerConexionPDO(); // Reemplaza esto con tu lógica para obtener la conexión PDO
 
-$controller = new ProcessController();
+// Pasar el objeto PDO al constructor de ProcessController
+$controller = new ProcessController($pdo);
+
+$action = isset($_GET['action']) ? $_GET['action'] : 'home';
 
 switch ($action) {
     case 'getRegions':
@@ -27,3 +31,4 @@ switch ($action) {
         require 'views/home.php';
         break;
 }
+
