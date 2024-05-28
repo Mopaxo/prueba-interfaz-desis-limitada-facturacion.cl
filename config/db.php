@@ -5,7 +5,7 @@ $host = $_ENV['DB_HOST'] ?? 'default_host';
 $db   = $_ENV['DB_NAME'] ?? 'default_db';
 $user = $_ENV['DB_USER'] ?? 'default_user';
 $pass = $_ENV['DB_PASS'] ?? 'default_pass';
-$charset = $_ENV['DB_CHARSET'] ?? 'utf8mb4';
+$charset = 'utf8mb4';
 
 $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
 $options = [

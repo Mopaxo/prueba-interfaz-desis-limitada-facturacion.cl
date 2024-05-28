@@ -1,0 +1,34 @@
+Instrucciones de instalación: (Linux/MacOs)
+
+1. Instalación de PHP 8.1.2:
+   - Descarga e instala PHP 8.1.2 desde el sitio web oficial de PHP (https://www.php.net/downloads)
+   - Sigue las instrucciones de instalación para tu sistema operativo.
+   - Asegúrate de instalar el módulo PHP para MySQL (`php-mysql`) ejecutando el siguiente comando en tu terminal: sudo apt-get install php-mysql
+    
+
+2. Instalación de MySQL 8.0.36:
+   - Descarga e instala MySQL 8.0.36 desde el sitio web oficial de MySQL (https://dev.mysql.com/downloads/mysql/)
+   - Sigue las instrucciones de instalación para tu sistema operativo.
+   - Utiliza el archivo votaciones.sql proporcionado, ubicado en `proyecto/sql/votaciones.sql`, para importar la base de datos. Puedes usar el comando `mysql -u usuario -p nombre_de_la_base_de_datos < proyecto/sql/votaciones.sql` en la línea de comandos para importar la base de datos.
+
+Configuración de variables de entorno:
+
+Es necesario configurar las variables de entorno para ejecutar el proyecto localmente. Asegúrate de crear un archivo `.env` en la raíz del proyecto con la configuración adecuada antes de comenzar. El archivo `.env` utiliza el siguiente formato:
+
+DB_HOST=ejemplo_servidor
+DB_NAME=ejemplo_base_de_datos
+DB_USER=usuario_ejemplo
+DB_PASS=contraseña_ejemplo
+DB_CHARSET=utf8mb4
+
+Deberás configurar los valores de las variables según la base de datos que utilices.
+
+Ejecución del proyecto:
+
+Para ejecutar el proyecto localmente, abre una terminal y navega hasta la carpeta raíz del proyecto. Luego, ejecuta el siguiente comando:
+
+php -S localhost:8000
+
+Este comando iniciará un servidor web local en el puerto 8000. Puedes acceder al proyecto desde tu navegador web visitando http://localhost:8000.
+
+¡Listo! Ahora deberías poder ejecutar el proyecto localmente siguiendo estas instrucciones.
