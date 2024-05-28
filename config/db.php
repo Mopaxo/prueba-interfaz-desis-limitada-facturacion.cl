@@ -22,4 +22,3 @@ function obtenerConexionPDO() {
         throw new \PDOException($e->getMessage(), (int)$e->getCode());
     }
 }
-echo "Conexión exitosa a la base de datos";

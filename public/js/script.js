@@ -152,7 +152,6 @@ function cargarComunas(regionId) {
             });
         });
 }
-
 // Cargar los candidatos desde la base de datos
 function cargarCandidatos() {
     fetch(urls.getCandidatos)

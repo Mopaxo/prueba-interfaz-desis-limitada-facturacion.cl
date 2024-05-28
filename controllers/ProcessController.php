@@ -13,50 +13,44 @@ class ProcessController {
     }
 
     public function handleRequest() {
-        $action = isset($_GET['action']) ? $_GET['action'] : '';
+        $action = $_GET['action'] ?? '';
 
         switch ($action) {
             case 'getRegions':
-                $this->getRegions();
-                break;
+                return $this->getRegions();
             case 'getComunas':
-                $this->getComunas();
-                break;
+                return $this->getComunas();
             case 'getCandidatos':
-                $this->getCandidatos();
-                break;
+                return $this->getCandidatos();
             case 'checkRUT':
-                $this->checkRUT();
-                break;
+                return $this->checkRUT();
             case 'submitVote':
-                $this->submitVote();
-                break;
+                return $this->submitVote();
             default:
-                echo json_encode(['error' => 'Acción no válida']);
-                break;
+                return ['error' => 'Acción no válida'];
         }
     }
 
     public function getRegions() {
         $model = new RegionModel($this->pdo);
-        $regions = $model->getAllRegions();
+        return $model->getAllRegions();
     }
 
     public function getComunas() {
-        $region_id = isset($_GET['region_id']) ? $_GET['region_id'] : 0;
+        $region_id = $_GET['region_id'] ?? 0;
         $model = new ComunaModel($this->pdo);
-        $comunas = $model->getComunasByRegion($region_id);
+        return $model->getComunasByRegion($region_id);
     }
 
     public function getCandidatos() {
         $model = new CandidatoModel($this->pdo);
-        $candidatos = $model->getAllCandidatos();
+        return $model->getAllCandidatos();
     }
 
     public function checkRUT() {
-        $rut = isset($_POST['rut']) ? $_POST['rut'] : '';
+        $rut = $_POST['rut'] ?? '';
         $model = new VotoModel($this->pdo);
-        $exists = $model->checkRUT($rut);
+        return $model->checkRUT($rut);
     }
 
     public function submitVote() {
@@ -71,9 +65,7 @@ class ProcessController {
             'enterado' => isset($_POST['enterado']) ? json_encode($_POST['enterado']) : '[]'
         ];
         $model = new VotoModel($this->pdo);
-        $success = $model->submitVote($data);
-        require_once __DIR__ . '/../views/json_response.php';
+        return $model->submitVote($data);
     }
 }
-
 ?>
