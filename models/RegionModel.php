@@ -1,10 +1,14 @@
 <?php
-require_once 'db.php';
-
 class RegionModel {
-    public function getRegions() {
+    private $pdo;
+
+    public function __construct() {
         global $pdo;
-        $stmt = $pdo->query('SELECT id, nombre FROM regiones');
+        $this->pdo = $pdo;
+    }
+
+    public function getAllRegions() {
+        $stmt = $this->pdo->query('SELECT id, nombre FROM regiones');
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 }

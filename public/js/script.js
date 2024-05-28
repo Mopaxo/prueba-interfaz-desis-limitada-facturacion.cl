@@ -1,9 +1,11 @@
 const urls = {
-    getRegions: '/controllers/RegionController.php',
-    getComunas: '/controllers/ComunaController.php',
-    getCandidatos: '/controllers/CandidatoController.php',
-    submitVote: '/controllers/VotoController.php'
+    getRegions: '/index.php?action=getRegions',
+    getComunas: '/index.php?action=getComunas',
+    getCandidatos: '/index.php?action=getCandidatos',
+    checkRUT: '/index.php?action=checkRUT',
+    submitVote: '/index.php?action=submitVote'
 };
+
 document.getElementById('votingForm').addEventListener('submit', function(event) {
     event.preventDefault(); // Prevenir el envío por defecto
 
@@ -64,17 +66,17 @@ document.getElementById('votingForm').addEventListener('submit', function(event)
 
     // Lógica para verificar la duplicación de votos por RUT
     const formData = new FormData(document.getElementById('votingForm'));
-    fetch('process.php?action=checkRUT', {
+    fetch(urls.checkRUT, {
         method: 'POST',
         body: formData
     })
     .then(response => response.json())
     .then(data => {
         if (data.exists) {
-            alert('El RUT ingresado ya ha votado. Porfavor ingrese otro RUT');
+            alert('El RUT ingresado ya ha votado. Por favor ingrese otro RUT');
         } else {
             // Si el RUT no existe, se envia el formulario y guardamos el voto.
-            fetch('process.php?action=submitVote', {
+            fetch(urls.submitVote, {
                 method: 'POST',
                 body: formData
             })
@@ -99,7 +101,7 @@ document.getElementById('votingForm').addEventListener('submit', function(event)
     });
 });
 
-//Lógica de validación del formato RUT
+// Lógica de validación del formato RUT
 function validarRUT(rut) {
     rut = rut.replace(/\./g, '').replace(/-/g, '');
     if (rut.length < 8) return false;
@@ -118,36 +120,10 @@ function validarRUT(rut) {
 
     return dv === expectedDv;
 }
+
 // Cargar las regiones desde la base de datos
 function cargarRegiones() {
     fetch(urls.getRegions)
-        .then(response => response.json())
-        .then(data => {
-            // Resto del código para cargar las regiones...
-        });
-}
-
-// Cargar las comunas correspondientes a la región seleccionada desde la base de datos
-function cargarComunas(regionId) {
-    fetch(`${urls.getComunas}&region_id=${regionId}`)
-        .then(response => response.json())
-        .then(data => {
-            // Resto del código para cargar las comunas...
-        });
-}
-
-// Cargar los candidatos desde la base de datos
-function cargarCandidatos() {
-    fetch(urls.getCandidatos)
-        .then(response => response.json())
-        .then(data => {
-            // Resto del código para cargar los candidatos...
-        });
-}
-
-// Cargar las regiones desde la base de datos
-function cargarRegiones() {
-    fetch('process.php?action=getRegions')
         .then(response => response.json())
         .then(data => {
             const regionSelect = document.getElementById('region');
@@ -163,7 +139,7 @@ function cargarRegiones() {
 
 // Cargar las comunas correspondientes a la región seleccionada desde la base de datos
 function cargarComunas(regionId) {
-    fetch(`process.php?action=getComunas&region_id=${regionId}`)
+    fetch(`${urls.getComunas}&region_id=${regionId}`)
         .then(response => response.json())
         .then(data => {
             const comunaSelect = document.getElementById('comuna');
@@ -179,7 +155,7 @@ function cargarComunas(regionId) {
 
 // Cargar los candidatos desde la base de datos
 function cargarCandidatos() {
-    fetch('process.php?action=getCandidatos')
+    fetch(urls.getCandidatos)
         .then(response => response.json())
         .then(data => {
             const candidatoSelect = document.getElementById('candidato');

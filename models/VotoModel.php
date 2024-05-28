@@ -1,18 +1,25 @@
 <?php
-require_once 'db.php';
-
 class VotoModel {
-    public function checkRUT($rut) {
+    private $pdo;
+
+    public function __construct() {
         global $pdo;
-        $stmt = $pdo->prepare('SELECT COUNT(*) AS count FROM votos WHERE rut = ?');
-        $stmt->execute([$rut]);
-        return $stmt->fetch(PDO::FETCH_ASSOC)['count'] > 0;
+        $this->pdo = $pdo;
     }
 
-    public function submitVote($nombre, $alias, $rut, $email, $region_id, $comuna_id, $candidato_id, $enterado) {
-        global $pdo;
-        $stmt = $pdo->prepare('INSERT INTO votos (nombre, alias, rut, email, region_id, comuna_id, candidato_id, enterado) VALUES (?, ?, ?, ?, ?, ?, ?, ?)');
-        return $stmt->execute([$nombre, $alias, $rut, $email, $region_id, $comuna_id, $candidato_id, $enterado]);
+    public function checkRUT($rut) {
+        $stmt = $this->pdo->prepare('SELECT COUNT(*) AS count FROM votos WHERE rut = ?');
+        $stmt->execute([$rut]);
+        $count = $stmt->fetch(PDO::FETCH_ASSOC)['count'];
+        return ['exists' => $count > 0];
+    }
+
+    public function submitVote($data) {
+        $stmt = $this->pdo->prepare('INSERT INTO votos (nombre, alias, rut, email, region_id, comuna_id, candidato_id, enterado) VALUES (?, ?, ?, ?, ?, ?, ?, ?)');
+        return $stmt->execute([
+            $data['nombre'], $data['alias'], $data['rut'], $data['email'],
+            $data['region_id'], $data['comuna_id'], $data['candidato_id'], $data['enterado']
+        ]);
     }
 }
 ?>
