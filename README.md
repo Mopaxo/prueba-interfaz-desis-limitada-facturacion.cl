@@ -73,8 +73,11 @@ Instrucciones de instalación: (Linux/MacOs)
 2. Instalación de MySQL 8.0.36:
    - Descarga e instala MySQL 8.0.36 desde el sitio web oficial de MySQL (https://dev.mysql.com/downloads/mysql/)
    - Sigue las instrucciones de instalación para tu sistema operativo.
-    - Utiliza el archivo votaciones.sql proporcionado, ubicado en `proyecto/sql/votaciones.sql`, para importar la base de datos. Puedes usar el comando `mysql -u usuario -p nombre_de_la_base_de_datos < proyecto/sql/votaciones.sql` en la línea de comandos para importar la base de datos.
-
+    - Utiliza el archivo votaciones.sql proporcionado, ubicado en `proyecto/sql/votaciones.sql`, para importar la base de datos. Puedes usar el siguiente comando en tu terminal, para importar la base de datos:
+    ```
+    mysql -u usuario -p nombre_de_la_base_de_datos < proyecto/sql/votaciones.sql
+    ```
+    
 Configuración de variables de entorno:
 
 Es necesario configurar las variables de entorno para ejecutar el proyecto localmente. Asegúrate de crear un archivo `.env` en la raíz del proyecto con la configuración adecuada antes de comenzar. El archivo `.env` utiliza el siguiente formato:
